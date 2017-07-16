@@ -1,8 +1,11 @@
 package com.twu.biblioteca;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import com.twu.biblioteca.Biblioteca;
+import com.twu.biblioteca.BibliotecaApp;
+import org.junit.*;
+import org.mockito.Mock;
+
+import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -13,6 +16,9 @@ public class BibliotecaAppTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+
+    @Mock
+    Biblioteca bibliotecaMock;
 
     @Before
     public void setUpStreams() {
@@ -30,6 +36,12 @@ public class BibliotecaAppTest {
     public void testWhenRunningAppMessageIsNotEmpty(){
         BibliotecaApp.main(null);
         assertFalse(outContent.toString().trim().isEmpty());
+    }
+
+    @Test
+    public void testWhenRunningAppListOfBooksIsCalledFromBibliotecaClass(){
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(bibliotecaMock);
+        verify(bibliotecaMock, times(1)).getBooks();
     }
 
 }

@@ -1,15 +1,13 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.Biblioteca;
-import com.twu.biblioteca.BibliotecaApp;
 import org.junit.*;
 import org.mockito.Mock;
+import org.mockito.junit.*;
 
 import static org.mockito.Mockito.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
+import java.io.*;
+import java.util.*;
 import static org.junit.Assert.*;
 
 public class BibliotecaAppTest {
@@ -18,12 +16,23 @@ public class BibliotecaAppTest {
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
     @Mock
-    Biblioteca bibliotecaMock;
+    private Biblioteca bibliotecaMock;
+    List<String> listOfBooks;
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
+    }
+
+    @Before
+    public void setUpMocks(){
+        listOfBooks = new ArrayList<String>();
+        listOfBooks.add("book");
+        when(bibliotecaMock.getBooks()).thenReturn(listOfBooks);
     }
 
     @After
@@ -34,7 +43,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testWhenRunningAppMessageIsNotEmpty(){
-        BibliotecaApp.main(null);
+        BibliotecaLauncher.main(null);
         assertFalse(outContent.toString().trim().isEmpty());
     }
 
@@ -42,6 +51,12 @@ public class BibliotecaAppTest {
     public void testWhenRunningAppListOfBooksIsCalledFromBibliotecaClass(){
         BibliotecaApp bibliotecaApp = new BibliotecaApp(bibliotecaMock);
         verify(bibliotecaMock, times(1)).getBooks();
+    }
+
+    @Test
+    public void testWhenRunningAppPrintsListOfBooksAfterWelcomeMessage(){
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(bibliotecaMock);
+        assertEquals(bibliotecaApp.WelcomeMessage + "\n" + listOfBooks, outContent.toString().trim());
     }
 
 }

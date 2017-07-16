@@ -2,19 +2,21 @@ package com.twu.biblioteca;
 
 public class BibliotecaApp {
 
+    private Biblioteca biblioteca;
+
+    public final String WelcomeMessage = "***************** Welcome to \"la Biblioteca\" *****************";
+
     public BibliotecaApp(Biblioteca biblioteca){
-
-    }
-
-    public static void main(String[] args) {
+        this.biblioteca = biblioteca;
         printMessage();
+        printListOfBooks();
     }
 
-    public static void printMessage() {
-        System.out.println("***************** Welcome to \"la Biblioteca\" *****************");
+    public void printMessage() {
+        System.out.println(WelcomeMessage);
     }
 
-    public static void printListOfBooks() {
-        System.out.println();
+    public void printListOfBooks() {
+        System.out.println(biblioteca.getBooks());
     }
 }

@@ -19,4 +19,8 @@ public class MenuOutput {
 
         System.out.println(outputInColumns);
     }
+
+    public void printInvalidOption(){
+        System.out.println("Select a valid option!");
+    }
 }

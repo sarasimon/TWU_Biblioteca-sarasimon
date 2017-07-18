@@ -20,13 +20,38 @@ public class MenuTest {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Test
-    public void testWhenRunningAppPrintsListOfBooksAfterAskingForOption1(){
-        when(menuInputMock.readOption()).thenReturn("1");
+    public void testWhenPressOption1PrintsListOfBooks(){
+        when(menuInputMock.read()).thenReturn("1").thenReturn("q");
         Menu menu = new Menu(menuInputMock, menuOutputMock);
-
-        menu.printOptions();
-        menu.readOption();
+        menu.open();
 
         verify(menuOutputMock, times(1)).printListOfBooks();
+    }
+
+    @Test
+    public void testWhenInvalidOptionIsChosenInputIsCalledTwiceUntilItFindsValidOption(){
+        when(menuInputMock.read()).thenReturn("0").thenReturn("1").thenReturn("q");
+        Menu menu = new Menu(menuInputMock, menuOutputMock);
+        menu.open();
+
+        verify(menuInputMock, times(3)).read();
+    }
+
+    @Test
+    public void testWhenValidOptionIsChosen3TimesInputIsCalledUntilWeExit(){
+        when(menuInputMock.read()).thenReturn("1").thenReturn("1").thenReturn("q");
+        Menu menu = new Menu(menuInputMock, menuOutputMock);
+        menu.open();
+
+        verify(menuInputMock, times(3)).read();
+    }
+
+    @Test
+    public void testWhenEnteredQWillExitTheProgram(){
+        when(menuInputMock.read()).thenReturn("0").thenReturn("q");
+        Menu menu = new Menu(menuInputMock, menuOutputMock);
+        menu.open();
+
+        verify(menuInputMock, times(2)).read();
     }
 }

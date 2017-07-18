@@ -5,7 +5,7 @@ public class Menu {
     MenuOutput output;
     MenuInput input;
 
-    public String options(){
+    public String options() {
         return "Option 1. Show List Of Books";
     }
 
@@ -14,20 +14,18 @@ public class Menu {
         input = menuInput;
     }
 
-    public void open(){
-        printOptions();
-        readOption();
-    }
-
-    public void printOptions() {
+    public void open() {
         output.printMenu(options());
-    }
+        String opt = input.read();
 
-
-    public void readOption() {
-        if(input.readOption().equals("1"))
+        if (opt.equals("1")) {
             output.printListOfBooks();
-        else
+        } else if (opt.equals("q")) {
             return;
+        } else{
+            output.printInvalidOption();
+        }
+
+        open();
     }
 }

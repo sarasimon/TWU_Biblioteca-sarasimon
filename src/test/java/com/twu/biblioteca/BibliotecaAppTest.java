@@ -7,6 +7,7 @@ import org.mockito.junit.*;
 import java.io.*;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class BibliotecaAppTest {
@@ -24,7 +25,7 @@ public class BibliotecaAppTest {
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
-        when(menuInputMock.readOption()).thenReturn("0");
+        when(menuInputMock.read()).thenReturn("q");
         bibliotecaApp = new BibliotecaApp(new Menu(menuInputMock,new MenuOutput()));
     }
 
@@ -42,7 +43,17 @@ public class BibliotecaAppTest {
         output += "\nThis is the menu: (Press number and Intro to select an option)";
         output += "\nOption 1. Show List Of Books";
 
-        assertEquals(outContent.toString().trim(), output);
+        assertTrue(outContent.toString().trim().contains(output));
+    }
+
+    @Test
+    public void testWhenRunningAppReturnsInvalidMessageWhenOptionIsInvalid(){
+        when(menuInputMock.read()).thenReturn("0").thenReturn("1").thenReturn("q");
+        bibliotecaApp = new BibliotecaApp(new Menu(menuInputMock,new MenuOutput()));
+        bibliotecaApp.start();
+        String output = "Select a valid option!";
+
+        assertTrue(outContent.toString().trim().contains(output));
     }
 
     @After

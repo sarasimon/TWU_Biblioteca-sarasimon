@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 
 public class BookTest {
 
+//    Side case
 //    @Test
 //    public void testBooksContainDetailsOfAuthorNonNullAndYear(){
 //        Book book = new Book(null, -100);
@@ -20,7 +21,7 @@ public class BookTest {
 
     @Test
     public void testBooksContainDetailsOfAuthor() throws NoSuchMethodException {
-        Object bookObject = new Book("", 0);
+        Object bookObject = new Book("A","B", 0);
         Class<?> bookClass = bookObject.getClass();
         Method author = bookClass.getMethod("getAuthor");
         Method yearPublished = bookClass.getMethod("getYearPublished");

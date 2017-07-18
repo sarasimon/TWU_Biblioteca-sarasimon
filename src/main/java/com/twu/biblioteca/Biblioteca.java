@@ -6,18 +6,14 @@ import java.util.List;
 public class Biblioteca {
 
     private List<Book> books;
-    public static final String BOOKDISPLAYFORMAT = "%-30.30s  %-30.30s%n";
 
-    public Biblioteca(List<Book> books){
-        this.books = books;
+    public Biblioteca(){
+        books = new ArrayList<Book>();
+        books.add(new Book("Bible","Jesus",0));
+        books.add(new Book("Refactoring", "M. Fowler", 1990));
     }
 
-    public void printListOfBooks() {
-        String outputInColumns = String.format(Biblioteca.BOOKDISPLAYFORMAT, "Author", "Year Published");
-        for (Book iBook: books) {
-            outputInColumns += String.format(Biblioteca.BOOKDISPLAYFORMAT, iBook.getAuthor(), iBook.getYearPublished());
-        }
-
-        System.out.println(outputInColumns);
+    public List<Book> getListOfBooks() {
+        return books;
     }
 }

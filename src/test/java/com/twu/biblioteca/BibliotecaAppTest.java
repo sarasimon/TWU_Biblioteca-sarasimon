@@ -1,27 +1,22 @@
 package com.twu.biblioteca;
 
 import org.junit.*;
-import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.*;
-
-import static org.mockito.Mockito.*;
 
 import java.io.*;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 public class BibliotecaAppTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    BibliotecaApp bibliotecaApp;
 
     @Mock
-    private Biblioteca bibliotecaMock;
-
-    @Mock
-    private Welcome welcomeMock;
-
+    private MenuInput menuInputMock;
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
@@ -29,26 +24,25 @@ public class BibliotecaAppTest {
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(bibliotecaMock, welcomeMock);
+        when(menuInputMock.readOption()).thenReturn("0");
+        bibliotecaApp = new BibliotecaApp(new Menu(menuInputMock,new MenuOutput()));
+    }
+
+    @Test
+    public void testWhenRunningAppMessageIsWelcomeMessage(){
         bibliotecaApp.start();
+        assertTrue(outContent.toString().trim().contains("***************** Welcome to \"la Biblioteca\" *****************"));
     }
 
-    @Test
-    public void testWhenRunningAppMessageIsNotEmpty(){
-        BibliotecaApp.main(null);
-        assertTrue(outContent.toString().trim().contains(new Welcome().WelcomeMessage));
-    }
 
     @Test
-    public void testWhenRunningAppListOfBooksIsCalledFromBibliotecaClass(){
-        verify(bibliotecaMock, times(1)).printListOfBooks();
-    }
+    public void testWhenRunningAppPrintsListOfOptionsAfterWelcomeMessage(){
+        bibliotecaApp.start();
+        String output = "***************** Welcome to \"la Biblioteca\" *****************";
+        output += "\nThis is the menu: (Press number and Intro to select an option)";
+        output += "\nOption 1. Show List Of Books";
 
-    @Test
-    public void testWhenRunningAppPrintsListOfBooksAfterWelcomeMessage(){
-        InOrder inOrder = inOrder(welcomeMock, bibliotecaMock);
-        inOrder.verify(welcomeMock).printMessage();
-        inOrder.verify(bibliotecaMock).printListOfBooks();
+        assertEquals(outContent.toString().trim(), output);
     }
 
     @After

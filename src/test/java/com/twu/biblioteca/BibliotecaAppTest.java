@@ -1,13 +1,14 @@
 package com.twu.biblioteca;
 
 import org.junit.*;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.*;
 
 import static org.mockito.Mockito.*;
 
 import java.io.*;
-import java.util.*;
+
 import static org.junit.Assert.*;
 
 public class BibliotecaAppTest {
@@ -17,7 +18,9 @@ public class BibliotecaAppTest {
 
     @Mock
     private Biblioteca bibliotecaMock;
-    List<String> listOfBooks;
+
+    @Mock
+    private Welcome welcomeMock;
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -26,37 +29,32 @@ public class BibliotecaAppTest {
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(bibliotecaMock, welcomeMock);
+        bibliotecaApp.start();
     }
 
-    @Before
-    public void setUpMocks(){
-        listOfBooks = new ArrayList<String>();
-        listOfBooks.add("book");
-        when(bibliotecaMock.getBooks()).thenReturn(listOfBooks);
+    @Test
+    public void testWhenRunningAppMessageIsNotEmpty(){
+        BibliotecaApp.main(null);
+        assertTrue(outContent.toString().trim().contains(new Welcome().WelcomeMessage));
+    }
+
+    @Test
+    public void testWhenRunningAppListOfBooksIsCalledFromBibliotecaClass(){
+        verify(bibliotecaMock, times(1)).printListOfBooks();
+    }
+
+    @Test
+    public void testWhenRunningAppPrintsListOfBooksAfterWelcomeMessage(){
+        InOrder inOrder = inOrder(welcomeMock, bibliotecaMock);
+        inOrder.verify(welcomeMock).printMessage();
+        inOrder.verify(bibliotecaMock).printListOfBooks();
     }
 
     @After
     public void cleanUpStreams() {
         System.setOut(null);
         System.setErr(null);
-    }
-
-    @Test
-    public void testWhenRunningAppMessageIsNotEmpty(){
-        BibliotecaLauncher.main(null);
-        assertFalse(outContent.toString().trim().isEmpty());
-    }
-
-    @Test
-    public void testWhenRunningAppListOfBooksIsCalledFromBibliotecaClass(){
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(bibliotecaMock);
-        verify(bibliotecaMock, times(1)).getBooks();
-    }
-
-    @Test
-    public void testWhenRunningAppPrintsListOfBooksAfterWelcomeMessage(){
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(bibliotecaMock);
-        assertEquals(bibliotecaApp.WelcomeMessage + "\n" + listOfBooks, outContent.toString().trim());
     }
 
 }

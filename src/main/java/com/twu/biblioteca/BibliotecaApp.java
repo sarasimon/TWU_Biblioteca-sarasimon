@@ -1,22 +1,24 @@
 package com.twu.biblioteca;
 
+import java.util.ArrayList;
+
 public class BibliotecaApp {
 
     private Biblioteca biblioteca;
+    private Welcome welcome;
 
-    public final String WelcomeMessage = "***************** Welcome to \"la Biblioteca\" *****************";
-
-    public BibliotecaApp(Biblioteca biblioteca){
+    public BibliotecaApp(Biblioteca biblioteca, Welcome welcome){
         this.biblioteca = biblioteca;
-        printMessage();
-        printListOfBooks();
+        this.welcome = welcome;
     }
 
-    public void printMessage() {
-        System.out.println(WelcomeMessage);
+    public void start(){
+        welcome.printMessage();
+        biblioteca.printListOfBooks();
     }
 
-    public void printListOfBooks() {
-        System.out.println(biblioteca.getBooks());
+    public static void main(String[] args) {
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(new Biblioteca(new ArrayList<Book>()), new Welcome());
+        bibliotecaApp.start();
     }
 }

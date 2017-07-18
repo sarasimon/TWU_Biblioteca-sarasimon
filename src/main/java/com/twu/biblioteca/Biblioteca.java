@@ -5,15 +5,19 @@ import java.util.List;
 
 public class Biblioteca {
 
-    public List<String> getBooks() {
-        return books;
+    private List<Book> books;
+    public static final String BOOKDISPLAYFORMAT = "%-30.30s  %-30.30s%n";
+
+    public Biblioteca(List<Book> books){
+        this.books = books;
     }
 
-    private List<String> books;
+    public void printListOfBooks() {
+        String outputInColumns = String.format(Biblioteca.BOOKDISPLAYFORMAT, "Author", "Year Published");
+        for (Book iBook: books) {
+            outputInColumns += String.format(Biblioteca.BOOKDISPLAYFORMAT, iBook.getAuthor(), iBook.getYearPublished());
+        }
 
-    public Biblioteca(){
-        books = new ArrayList<String>();
-        books.add("A");
-        books.add("B");
+        System.out.println(outputInColumns);
     }
 }

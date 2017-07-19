@@ -4,34 +4,24 @@ public class Menu {
 
     MenuOutput output;
     MenuInput input;
+    Options options;
 
-    public String options() {
-        return "Option 1. Show List Of Books + \n + Option q. Quit de program";
-    }
-
-    public Menu(MenuInput menuInput, MenuOutput menuOutput) {
+    public Menu(MenuInput menuInput, MenuOutput menuOutput, Options options) {
         output = menuOutput;
         input = menuInput;
+        this.options = options;
     }
 
-    public void open(String question) {
-        output.printMenu(question);
+    public void open() {
+        output.printWelcome();
+        output.printMenu(options.ask());
         String opt = input.read();
 
-        while (returnOptions(opt)){
-            output.printMenu(options());
+        while (options.returnOptions(opt)){
+            output.printMenu(options.ask());
             opt = input.read();
         }
     }
 
-    private Boolean returnOptions(String opt) {
-        if (opt.equals("1")) {
-            output.printListOfBooks();
-        } else if (opt.equals("q")) {
-            return false;
-        } else {
-            output.printInvalidOption();
-        }
-        return true;
-    }
+
 }

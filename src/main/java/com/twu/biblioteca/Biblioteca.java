@@ -16,4 +16,12 @@ public class Biblioteca {
     public List<Book> getListOfBooks() {
         return books;
     }
+
+    public void addBook(Book book) {
+        books.add(book);
+    }
+
+    public void checkOut(Book book) {
+        books.remove(book);
+    }
 }

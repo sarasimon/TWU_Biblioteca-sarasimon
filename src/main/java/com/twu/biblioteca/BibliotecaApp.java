@@ -2,19 +2,12 @@ package com.twu.biblioteca;
 
 public class BibliotecaApp {
 
-    private Menu menu;
-
-    public BibliotecaApp(Menu menu){
-        this.menu = menu;
-    }
-
-    public void start(){
-        System.out.println("***************** Welcome to \"la Biblioteca\" *****************");
+    public void start(Menu menu){
         menu.open();
     }
 
     public static void main(String[] args) {
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(new Menu(new MenuInput(), new MenuOutput()));
-        bibliotecaApp.start();
+        Menu menu = new Menu(new MenuInput(), new MenuOutput(), new Options(new Biblioteca()));
+        menu.open();
     }
 }

@@ -15,7 +15,7 @@ public class Options {
     }
 
     public String ask() {
-        return "Option 1. Show List Of Books (Press 1) \nOption 2. Check out a book (Insert title of the book) \nOption 3. Quit de program (press \"q\")";
+        return "Option 1. Show List Of Books (Press 1)\nOption 2. Check out a book (Insert title of the book)\nOption 3. Quit de program (press \"q\")";
     }
 
     public Boolean returnOptions(String opt) {
@@ -33,6 +33,7 @@ public class Options {
 
     private void checkOutBook(String opt) {
         biblioteca.checkOut(opt);
+        System.out.println("Thank you! Enjoy the book");
     }
 
     void optionListOfBooks() {

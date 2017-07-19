@@ -22,15 +22,17 @@ public class Biblioteca {
         books.add(book);
     }
 
-    public void checkOut(String title) {
+    public boolean checkOut(String title) {
         Iterator<Book> iterator = books.iterator();
 
         while (iterator.hasNext()){
             Book book = iterator.next();
             if (book.getTitle().equals(title)){
                 iterator.remove();
+                return true;
             }
         }
+        return false;
     }
 
     public boolean titleExists(String title) {

@@ -1,0 +1,37 @@
+<application>
+  <component name="GitRememberedInputs">
+    <option name="visitedUrls">
+      <list>
+        <UrlAndUserName>
+          <option name="url" value="git@github.com:Kirschstein/legacy-ferry-booking-system.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/Kirschstein/legacy-ferry-booking-system.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="git@github.com:underscoreio/shapeless-guide-code.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/underscoreio/shapeless-guide-code.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/axel22/parprog-snippets.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="git@github.com:ealmasque/savage-rabbit.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/sarasimon/twu-biblioteca-sarasimon.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+      </list>
+    </option>
+    <option name="cloneParentDir" value="$USER_HOME$/IdeaProjects/TWU_Biblioteca-master" />
+  </component>
+</application>

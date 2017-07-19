@@ -1,15 +1,16 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Biblioteca {
 
     private List<Book> books;
 
-    public Biblioteca(){
+    public Biblioteca() {
         books = new ArrayList<Book>();
-        books.add(new Book("Bible","Jesus",0));
+        books.add(new Book("Bible", "Jesus", 0));
         books.add(new Book("Refactoring", "M. Fowler", 1990));
     }
 
@@ -21,7 +22,23 @@ public class Biblioteca {
         books.add(book);
     }
 
-    public void checkOut(Book book) {
-        books.remove(book);
+    public void checkOut(String title) {
+        Iterator<Book> iterator = books.iterator();
+
+        while (iterator.hasNext()){
+            Book book = iterator.next();
+            if (book.getTitle().equals(title)){
+                iterator.remove();
+            }
+        }
+    }
+
+    public boolean titleExists(String title) {
+        for (Book book : books) {
+            if (book.getTitle().equals(title)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

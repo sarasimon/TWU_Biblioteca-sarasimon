@@ -1,4 +1,4 @@
 package com.twu.biblioteca;
 
-public interface Action {
+public class InvalidAction {
 }

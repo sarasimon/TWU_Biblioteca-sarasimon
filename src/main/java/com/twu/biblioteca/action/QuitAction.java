@@ -1,4 +1,4 @@
 package com.twu.biblioteca;
 
-public class CheckOutAction {
+public class QuitAction {
 }

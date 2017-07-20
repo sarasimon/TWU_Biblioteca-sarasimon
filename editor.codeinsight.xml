@@ -1,5 +1,0 @@
-<application>
-  <component name="CodeInsightSettings">
-    <EXCLUDED_PACKAGE NAME="scala.collection.parallel.package$" />
-  </component>
-</application>

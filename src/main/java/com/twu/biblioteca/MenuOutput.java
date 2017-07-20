@@ -7,7 +7,7 @@ public class MenuOutput {
     }
 
     public void printMenu(String options){
-        System.out.println("This is the menu: (Press number and Intro to select an option)");
+        System.out.println("\nThis is the menu: (Press number and Intro to select an option)");
         System.out.println(options);
     }
 }

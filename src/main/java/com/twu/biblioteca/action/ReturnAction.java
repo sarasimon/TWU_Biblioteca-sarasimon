@@ -21,7 +21,7 @@ public class ReturnAction extends Action {
             System.out.println("Thank you for returning the book.");
             return true;
         } else {
-//            System.out.println("That book is not available.");
+            System.out.println("That is not a valid book to return.");
             return false;
         }
     }

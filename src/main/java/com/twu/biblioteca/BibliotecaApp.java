@@ -7,7 +7,7 @@ public class BibliotecaApp {
     }
 
     public static void main(String[] args) {
-        Menu menu = new Menu(new MenuInput(), new MenuOutput(), new Options(new Biblioteca()));
+        Menu menu = new Menu(new Input(), new MenuOutput());
         menu.open();
     }
 }

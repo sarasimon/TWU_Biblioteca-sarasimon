@@ -3,13 +3,13 @@ package com.twu.biblioteca;
 public class Menu {
 
     MenuOutput output;
-    MenuInput input;
+    Input input;
     Options options;
 
-    public Menu(MenuInput menuInput, MenuOutput menuOutput, Options options) {
+    public Menu(Input input, MenuOutput menuOutput) {
         output = menuOutput;
-        input = menuInput;
-        this.options = options;
+        this.input = input;
+        this.options = new Options(new Biblioteca(), input);
     }
 
     public void open() {

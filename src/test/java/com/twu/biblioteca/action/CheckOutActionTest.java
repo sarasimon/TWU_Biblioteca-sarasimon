@@ -1,12 +1,12 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.action;
 
-import com.twu.biblioteca.Action.CheckOutAction;
+import com.twu.biblioteca.Biblioteca;
+import com.twu.biblioteca.Input;
 import org.junit.*;
 import org.mockito.*;
 import org.mockito.junit.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;

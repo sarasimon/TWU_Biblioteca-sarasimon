@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
@@ -10,48 +9,42 @@ import static org.mockito.Mockito.*;
 
 public class MenuTest {
 
-    @Mock
-    private MenuOutput menuOutputMock;
+    private Menu menu;
+    private MenuOutput menuOutput = new MenuOutput();
 
     @Mock
-    private MenuInput menuInputMock;
+    private Input inputMock;
+
+    @Mock
+    private Biblioteca bibliotecaMock;
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Test
-    public void testWhenPressOption1PrintsListOfBooks(){
-        when(menuInputMock.read()).thenReturn("1").thenReturn("q");
-        Menu menu = new Menu(menuInputMock, menuOutputMock);
+    public void testWhenInvalidOptionIsChosenInputIsCalledTwiceUntilItFindsValidOption() {
+        when(inputMock.read()).thenReturn("0").thenReturn("1").thenReturn("q");
+        menu = new Menu(inputMock, menuOutput);
         menu.open();
 
-        verify(menuOutputMock, times(1)).printListOfBooks();
+        verify(inputMock, times(3)).read();
     }
 
     @Test
-    public void testWhenInvalidOptionIsChosenInputIsCalledTwiceUntilItFindsValidOption(){
-        when(menuInputMock.read()).thenReturn("0").thenReturn("1").thenReturn("q");
-        Menu menu = new Menu(menuInputMock, menuOutputMock);
+    public void testWhenValidOptionIsChosen3TimesInputIsCalledUntilWeExit() {
+        when(inputMock.read()).thenReturn("1").thenReturn("1").thenReturn("q");
+        menu = new Menu(inputMock, menuOutput);
         menu.open();
 
-        verify(menuInputMock, times(3)).read();
+        verify(inputMock, times(3)).read();
     }
 
     @Test
-    public void testWhenValidOptionIsChosen3TimesInputIsCalledUntilWeExit(){
-        when(menuInputMock.read()).thenReturn("1").thenReturn("1").thenReturn("q");
-        Menu menu = new Menu(menuInputMock, menuOutputMock);
+    public void testWhenEnteredQWillExitTheProgram() {
+        when(inputMock.read()).thenReturn("0").thenReturn("q");
+        menu = new Menu(inputMock, menuOutput);
         menu.open();
 
-        verify(menuInputMock, times(3)).read();
-    }
-
-    @Test
-    public void testWhenEnteredQWillExitTheProgram(){
-        when(menuInputMock.read()).thenReturn("0").thenReturn("q");
-        Menu menu = new Menu(menuInputMock, menuOutputMock);
-        menu.open();
-
-        verify(menuInputMock, times(2)).read();
+        verify(inputMock, times(2)).read();
     }
 }

@@ -14,10 +14,10 @@ public class BibliotecaAppTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-    BibliotecaApp bibliotecaApp;
+    BibliotecaApp bibliotecaApp = new BibliotecaApp();
 
     @Mock
-    private MenuInput menuInputMock;
+    private Input inputMock;
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
@@ -25,20 +25,20 @@ public class BibliotecaAppTest {
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
-        when(menuInputMock.read()).thenReturn("q");
-        bibliotecaApp = new BibliotecaApp(new Menu(menuInputMock,new MenuOutput()));
     }
 
     @Test
     public void testWhenRunningAppMessageIsWelcomeMessage(){
-        bibliotecaApp.start();
+        when(inputMock.read()).thenReturn("q");
+        bibliotecaApp.start(new Menu(inputMock, new MenuOutput()));
         assertTrue(outContent.toString().trim().contains("***************** Welcome to \"la Biblioteca\" *****************"));
     }
 
 
     @Test
     public void testWhenRunningAppPrintsListOfOptionsAfterWelcomeMessage(){
-        bibliotecaApp.start();
+        when(inputMock.read()).thenReturn("q");
+        bibliotecaApp.start(new Menu(inputMock, new MenuOutput()));
         String output = "***************** Welcome to \"la Biblioteca\" *****************";
         output += "\nThis is the menu: (Press number and Intro to select an option)";
         output += "\nOption 1. Show List Of Books";
@@ -48,12 +48,21 @@ public class BibliotecaAppTest {
 
     @Test
     public void testWhenRunningAppReturnsInvalidMessageWhenOptionIsInvalid(){
-        when(menuInputMock.read()).thenReturn("0").thenReturn("1").thenReturn("q");
-        bibliotecaApp = new BibliotecaApp(new Menu(menuInputMock,new MenuOutput()));
-        bibliotecaApp.start();
-        String output = "Select a valid option!";
+        when(inputMock.read()).thenReturn("0").thenReturn("q");
+        bibliotecaApp = new BibliotecaApp();
+        bibliotecaApp.start(new Menu(inputMock, new MenuOutput()));
+        String output = "***************** Welcome to \"la Biblioteca\" *****************\n";
+        output += "This is the menu: (Press number and Intro to select an option)\n";
+        output += "Option 1. Show List Of Books (Press 1)\n";
+        output += "Option 2. Check out a book (Insert title of the book)\n";
+        output += "Option 3. Quit de program (press \"q\")\n";
+        output += "Select a valid option!\n";
+        output += "This is the menu: (Press number and Intro to select an option)\n";
+        output += "Option 1. Show List Of Books (Press 1)\n";
+        output += "Option 2. Check out a book (Insert title of the book)\n";
+        output += "Option 3. Quit de program (press \"q\")\n";
 
-        assertTrue(outContent.toString().trim().contains(output));
+        assertEquals(output.trim(), outContent.toString().trim());
     }
 
     @After

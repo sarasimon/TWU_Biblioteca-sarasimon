@@ -1,4 +1,8 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.action;
 
-public class QuitAction {
+public class QuitAction extends Action {
+
+    public boolean go() {
+        return false;
+    }
 }

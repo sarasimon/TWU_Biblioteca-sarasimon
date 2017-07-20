@@ -1,12 +1,10 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.action;
+
+import com.twu.biblioteca.Biblioteca;
 
 public abstract class Action {
 
     Biblioteca biblioteca;
 
-    public Action(Biblioteca biblioteca){
-        this.biblioteca = biblioteca;
-    }
-
-    public abstract void go();
+    public abstract boolean go();
 }

@@ -1,17 +1,19 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.action.*;
+
 public class Options {
 
-    public static final String BOOKDISPLAYFORMAT = "%-15s %-15s %-10s\n";
+    private Biblioteca biblioteca;
+    private Input input;
 
-    private Biblioteca biblioteca = new Biblioteca();
-
-    public Options(Biblioteca biblioteca){
-        this.biblioteca = biblioteca;
+    public Options() {
+        this.biblioteca = new Biblioteca();
     }
 
-    public Options(){
-        this.biblioteca = new Biblioteca();
+    public Options(Biblioteca biblioteca, Input input) {
+        this.biblioteca = biblioteca;
+        this.input = input;
     }
 
     public String ask() {
@@ -19,34 +21,23 @@ public class Options {
     }
 
     public Boolean returnOptions(String opt) {
+        Action action;
         if (opt.equals("1")) {
-            optionListOfBooks();
+            action = new ShowListOfBooksAction(biblioteca);
+            return action.go();
+        } else if (opt.equals("2")) {
+            action = new CheckOutAction(input, biblioteca);
+            return action.go();
+        } else if (opt.equals("3")) {
+            action = new ReturnAction(input, biblioteca);
+            return action.go();
         } else if (opt.equals("q")) {
-            return false;
-        } else if(biblioteca.titleExists(opt)){
-            checkOutBook(opt);
+            action = new QuitAction();
+            return action.go();
         } else {
-            invalidOption();
+            action = new InvalidAction();
+            return action.go();
         }
-        return true;
     }
-
-    private void checkOutBook(String opt) {
-        biblioteca.checkOut(opt);
-        System.out.println("Thank you! Enjoy the book");
-    }
-
-    void optionListOfBooks() {
-        String outputInColumns = String.format(BOOKDISPLAYFORMAT, "Title", "Author", "Year Published");
-        for (Book iBook: biblioteca.getListOfBooks()) {
-            outputInColumns += String.format(BOOKDISPLAYFORMAT, iBook.getTitle(), iBook.getAuthor(), iBook.getYearPublished());
-        }
-        System.out.println(outputInColumns);
-    }
-
-    void invalidOption(){
-        System.out.println("Select a valid option!");
-    }
-
 
 }

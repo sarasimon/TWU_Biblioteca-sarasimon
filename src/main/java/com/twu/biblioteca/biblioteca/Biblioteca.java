@@ -47,9 +47,9 @@ public class Biblioteca implements StoreInterface {
     }
 
     private boolean removeAddLoop(String title, Iterator<Book> itRemoveFrom, List<Book> listAddTo) {
-        while (itRemoveFrom.hasNext()){
+        while (itRemoveFrom.hasNext()) {
             Book book = itRemoveFrom.next();
-            if (book.getTitle().equals(title)){
+            if (book.getTitle().equals(title)) {
                 itRemoveFrom.remove();
                 listAddTo.add(book);
             }

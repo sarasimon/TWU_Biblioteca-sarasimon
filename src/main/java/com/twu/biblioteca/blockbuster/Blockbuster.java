@@ -16,6 +16,8 @@ public class Blockbuster implements StoreInterface {
     public Blockbuster() {
         listOfMovies = new ArrayList<>();
         listOfMovies.add(new Movie("Pulp Ficcion", 1995, "Tarantino", 10));
+        listOfMovies.add(new Movie("Reservoir Dogs", 1992, "Tarantino", 10));
+        listOfMovies.add(new Movie("Django", 2012, "Tarantino", 10));
     }
 
     public void addMovie(Movie movie) {

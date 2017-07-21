@@ -1,7 +1,7 @@
 package com.twu.biblioteca.action;
 
-import com.twu.biblioteca.Biblioteca;
-import com.twu.biblioteca.Book;
+import com.twu.biblioteca.biblioteca.Biblioteca;
+import com.twu.biblioteca.biblioteca.Book;
 
 public class ShowListOfBooksAction extends Action {
 

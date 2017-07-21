@@ -10,8 +10,8 @@ public class Biblioteca {
     private List<Book> checkedOutBooks;
 
     public Biblioteca() {
-        books = new ArrayList<>();
-        checkedOutBooks = new ArrayList<>();
+        books = new ArrayList<Book>();
+        checkedOutBooks = new ArrayList<Book>();
         books.add(new Book("Bible", "Jesus", 0));
         books.add(new Book("Refactoring", "M. Fowler", 1990));
     }

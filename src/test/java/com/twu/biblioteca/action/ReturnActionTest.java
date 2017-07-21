@@ -1,6 +1,7 @@
 package com.twu.biblioteca.action;
 
 import com.twu.biblioteca.*;
+import com.twu.biblioteca.biblioteca.Biblioteca;
 import org.junit.*;
 import org.mockito.*;
 import org.mockito.junit.*;

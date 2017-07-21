@@ -6,7 +6,7 @@ public class Input {
     Scanner scanner = new Scanner(System.in);
 
     public String read(){
-        String opt = scanner.next();
+        String opt = scanner.nextLine();
         return opt;
     }
 }

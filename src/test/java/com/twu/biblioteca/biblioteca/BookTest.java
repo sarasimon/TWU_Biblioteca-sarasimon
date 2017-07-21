@@ -1,11 +1,9 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.biblioteca;
 
+import com.twu.biblioteca.biblioteca.Book;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class BookTest {
 

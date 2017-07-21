@@ -1,4 +1,7 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.biblioteca;
+
+import com.twu.biblioteca.Input;
+import com.twu.biblioteca.Menu;
 
 public class BibliotecaApp {
 
@@ -7,7 +10,7 @@ public class BibliotecaApp {
     }
 
     public static void main(String[] args) {
-        Menu menu = new Menu(new Input(), new MenuOutput());
+        Menu menu = new Menu(new Input());
         menu.open();
     }
 }

@@ -1,26 +1,26 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.biblioteca.Biblioteca;
+import com.twu.biblioteca.blockbuster.Blockbuster;
+
 public class Menu {
 
-    MenuOutput output;
     Input input;
     Options options;
 
-    public Menu(Input input, MenuOutput menuOutput) {
-        output = menuOutput;
+    public Menu(Input input) {
         this.input = input;
-        this.options = new Options(new Biblioteca(), input);
+        this.options = new Options(new Biblioteca(), new Blockbuster(), input);
     }
 
     public void open() {
-        output.printWelcome();
-        output.printMenu(options.ask());
-        String opt = input.read();
+        System.out.println("***************** Welcome to \"la Biblioteca\" *****************");
+        String opt = "";
 
-        while (options.returnOptions(opt)){
-            output.printMenu(options.ask());
+        do {
+            options.ask();
             opt = input.read();
-        }
+        } while (options.returnOptions(opt));
     }
 
 

@@ -1,5 +1,7 @@
 package com.twu.biblioteca.action;
 
+import com.twu.biblioteca.StoreInterface;
+
 public class InvalidAction extends Action {
 
     @Override

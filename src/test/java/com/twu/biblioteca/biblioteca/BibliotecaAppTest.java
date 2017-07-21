@@ -1,5 +1,8 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.biblioteca;
 
+import com.twu.biblioteca.Input;
+import com.twu.biblioteca.Menu;
+import com.twu.biblioteca.Options;
 import org.junit.*;
 import org.mockito.Mock;
 import org.mockito.junit.*;
@@ -15,6 +18,7 @@ public class BibliotecaAppTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     BibliotecaApp bibliotecaApp = new BibliotecaApp();
+//    Options options = new Options(new Biblioteca(), new Input()).ask();
 
     @Mock
     private Input inputMock;
@@ -28,39 +32,41 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void testWhenRunningAppMessageIsWelcomeMessage(){
+    public void testWhenRunningAppMessageIsWelcomeMessage() {
         when(inputMock.read()).thenReturn("q");
-        bibliotecaApp.start(new Menu(inputMock, new MenuOutput()));
+        bibliotecaApp.start(new Menu(inputMock));
         assertTrue(outContent.toString().trim().contains("***************** Welcome to \"la Biblioteca\" *****************"));
     }
 
 
     @Test
-    public void testWhenRunningAppPrintsListOfOptionsAfterWelcomeMessage(){
+    public void testWhenRunningAppPrintsListOfOptionsAfterWelcomeMessage() {
         when(inputMock.read()).thenReturn("q");
-        bibliotecaApp.start(new Menu(inputMock, new MenuOutput()));
-        String output = "***************** Welcome to \"la Biblioteca\" *****************";
-        output += "\nThis is the menu: (Press number and Intro to select an option)";
-        output += "\nOption 1. Show List Of Books";
+        bibliotecaApp.start(new Menu(inputMock));
+        String output = "***************** Welcome to \"la Biblioteca\" *****************\n";
+        output += "\nThis is the menu: (Press number and Intro to select an option)\n";
+        for (Options.Strings d : Options.Strings.values()) {
+            output += d.toString() + "\n";
+        }
 
-        assertTrue(outContent.toString().trim().contains(output));
+        assertEquals(output.trim(), outContent.toString().trim());
     }
 
     @Test
-    public void testWhenRunningAppReturnsInvalidMessageWhenOptionIsInvalid(){
+    public void testWhenRunningAppReturnsInvalidMessageWhenOptionIsInvalid() {
         when(inputMock.read()).thenReturn("0").thenReturn("q");
         bibliotecaApp = new BibliotecaApp();
-        bibliotecaApp.start(new Menu(inputMock, new MenuOutput()));
+        bibliotecaApp.start(new Menu(inputMock));
         String output = "***************** Welcome to \"la Biblioteca\" *****************\n";
-        output += "This is the menu: (Press number and Intro to select an option)\n";
-        output += "Option 1. Show List Of Books (Press 1)\n";
-        output += "Option 2. Check out a book (Insert title of the book)\n";
-        output += "Option 3. Quit de program (press \"q\")\n";
+        output += "\nThis is the menu: (Press number and Intro to select an option)\n";
+        for (Options.Strings d : Options.Strings.values()) {
+            output += d.toString() + "\n";
+        }
         output += "Select a valid option!\n";
-        output += "This is the menu: (Press number and Intro to select an option)\n";
-        output += "Option 1. Show List Of Books (Press 1)\n";
-        output += "Option 2. Check out a book (Insert title of the book)\n";
-        output += "Option 3. Quit de program (press \"q\")\n";
+        output += "\nThis is the menu: (Press number and Intro to select an option)\n";
+        for (Options.Strings d : Options.Strings.values()) {
+            output += d.toString() + "\n";
+        }
 
         assertEquals(output.trim(), outContent.toString().trim());
     }

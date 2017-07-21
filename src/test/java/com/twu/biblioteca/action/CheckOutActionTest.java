@@ -1,6 +1,6 @@
 package com.twu.biblioteca.action;
 
-import com.twu.biblioteca.Biblioteca;
+import com.twu.biblioteca.biblioteca.Biblioteca;
 import com.twu.biblioteca.Input;
 import org.junit.*;
 import org.mockito.*;
@@ -32,12 +32,12 @@ public class CheckOutActionTest {
     public void testWhenCheckingOutTheBookFromMenuWillReduceTheSizeOfTheListOfBooks() {
         when(inputMock.read()).thenReturn("Bible");
         Biblioteca biblioteca = new Biblioteca();
-        int initialSize = biblioteca.getListOfBooks().size();
+        int initialSize = biblioteca.getListOfAvailable().size();
 
         CheckOutAction checkOutAction = new CheckOutAction(inputMock, biblioteca);
         checkOutAction.go();
 
-        Assert.assertEquals(initialSize - 1, biblioteca.getListOfBooks().size());
+        Assert.assertEquals(initialSize - 1, biblioteca.getListOfAvailable().size());
     }
 
     @Test
@@ -55,9 +55,9 @@ public class CheckOutActionTest {
 
     @Test
     public void testWhenCheckingOutABookUnsuccessfullyReturnsUnsuccessfulMessage(){
-        when(inputMock.read()).thenReturn("B");
+        when(inputMock.read()).thenReturn("B").thenReturn("q");
         String output = "Please, give the title of the book you want to check out:\n";
-        output += "That book is not available.";
+        output += "That book is not available. Please try again.";
         Biblioteca biblioteca = new Biblioteca();
 
         CheckOutAction checkOutAction = new CheckOutAction(inputMock, biblioteca);

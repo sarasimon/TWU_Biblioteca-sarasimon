@@ -2,11 +2,11 @@ package com.twu.biblioteca;
 
 import java.util.List;
 
-public interface BibliotecaInterface {
+public interface StoreInterface {
 
     public boolean checkOut(String name);
 
-    public final String element = "";
+    public String element();
 
     boolean isAvailable(String title);
 

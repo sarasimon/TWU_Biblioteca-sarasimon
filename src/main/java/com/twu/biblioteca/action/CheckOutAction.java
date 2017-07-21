@@ -1,14 +1,14 @@
 package com.twu.biblioteca.action;
 
-import com.twu.biblioteca.Biblioteca;
+import com.twu.biblioteca.StoreInterface;
 import com.twu.biblioteca.Input;
 
 public class CheckOutAction extends Action {
 
     private Input input;
 
-    public CheckOutAction(Input input, Biblioteca biblioteca) {
-        this.biblioteca = biblioteca;
+    public CheckOutAction(Input input, StoreInterface store) {
+        super(store);
         this.input = input;
     }
 
@@ -19,18 +19,18 @@ public class CheckOutAction extends Action {
             checkOutBook(title);
             return true;
         } else {
-            System.out.println("That book is not available.");
-            return false;
+            System.out.println("That book is not available. Please try again.\n");
+            return true;
         }
     }
 
     private void checkOutBook(String title) {
-        if (biblioteca.checkOut(title)) {
+        if (store.checkOut(title)) {
             System.out.println("Thank you! Enjoy the book");
         }
     }
 
     private boolean isAbleToCheckOut(String title) {
-        return biblioteca.bookIsIn(title);
+        return store.isAvailable(title);
     }
 }

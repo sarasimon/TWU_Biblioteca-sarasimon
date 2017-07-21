@@ -1,7 +1,7 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.biblioteca;
+import com.twu.biblioteca.Rentable;
 
-
-public class Book {
+public class Book implements Rentable{
 
     private String author;
     private Integer yearPublished;

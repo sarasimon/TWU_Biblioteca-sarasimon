@@ -1,13 +1,19 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.biblioteca;
+
+import com.twu.biblioteca.StoreInterface;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Biblioteca {
+public class Biblioteca implements StoreInterface {
 
     private List<Book> books;
     private List<Book> checkedOutBooks;
+
+    public String element() {
+        return "book";
+    }
 
     public Biblioteca() {
         books = new ArrayList<Book>();
@@ -16,7 +22,7 @@ public class Biblioteca {
         books.add(new Book("Refactoring", "M. Fowler", 1990));
     }
 
-    public List<Book> getListOfBooks() {
+    public List<Book> getListOfAvailable() {
         return books;
     }
 
@@ -24,12 +30,20 @@ public class Biblioteca {
         books.add(book);
     }
 
+    public boolean returnBook(String title) {
+        return removeAddLoop(title, checkedOutBooks.iterator(), books);
+    }
+
     public boolean checkOut(String title) {
         return removeAddLoop(title, books.iterator(), checkedOutBooks);
     }
 
-    public boolean returnBook(String title) {
-        return removeAddLoop(title, checkedOutBooks.iterator(), books);
+    public boolean bookWasCheckedOut(String title) {
+        return listLoop(title, checkedOutBooks);
+    }
+
+    public boolean isAvailable(String title) {
+        return listLoop(title, books);
     }
 
     private boolean removeAddLoop(String title, Iterator<Book> itRemoveFrom, List<Book> listAddTo) {
@@ -38,28 +52,17 @@ public class Biblioteca {
             if (book.getTitle().equals(title)){
                 itRemoveFrom.remove();
                 listAddTo.add(book);
-                return true;
             }
         }
-        return false;
+        return true;
     }
 
-    public boolean bookWasCheckedOut(String title) {
-        for (Book book : checkedOutBooks) {
+    private boolean listLoop(String title, List<Book> list) {
+        for (Book book : list) {
             if (book.getTitle().equals(title)) {
                 return true;
             }
         }
         return false;
     }
-
-    public boolean bookIsIn(String title) {
-        for (Book book : books) {
-            if (book.getTitle().equals(title)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }

@@ -1,12 +1,14 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.blockbuster;
 
-public class Movie {
+import com.twu.biblioteca.Rentable;
+
+public class Movie implements Rentable{
 
     private String name;
     private Integer year;
     private String director;
     private Integer rating;
-    private Boolean isAvailable;
+    private Boolean available;
 
     public String getName() {
         return name;
@@ -20,20 +22,27 @@ public class Movie {
         return director;
     }
 
+    public Boolean isAvailable(){ return available; }
+
     public Integer getRating() {
+        if (rating < 1) {
+            rating = 1;
+        } else if (rating > 10) {
+            rating = 10;
+        }
         return rating;
     }
 
-    public void checkOutMovie(){
-        isAvailable = false;
+    void setAsUnavailable() {
+        available = false;
     }
 
-    public Movie(String name, Integer year, String director, Integer rating){
+    public Movie(String name, Integer year, String director, Integer rating) {
         this.name = name;
         this.director = director;
         this.rating = rating;
         this.year = year;
-        this.isAvailable = true;
+        this.available = true;
     }
 
 }

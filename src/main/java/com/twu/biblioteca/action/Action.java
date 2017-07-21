@@ -1,10 +1,17 @@
 package com.twu.biblioteca.action;
 
-import com.twu.biblioteca.Biblioteca;
+import com.twu.biblioteca.StoreInterface;
 
 public abstract class Action {
 
-    Biblioteca biblioteca;
+    StoreInterface store;
+
+    public Action(){
+    }
+
+    public Action(StoreInterface store) {
+        this.store = store;
+    }
 
     public abstract boolean go();
 }

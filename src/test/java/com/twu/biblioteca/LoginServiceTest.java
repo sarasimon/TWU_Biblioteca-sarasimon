@@ -1,6 +1,9 @@
-import org.junit.Test;
+package com.twu.biblioteca;
 
-import static org.junit.Assert.*;
+import com.twu.biblioteca.LoginService;
+import com.twu.biblioteca.Status;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class LoginServiceTest {
 
@@ -10,7 +13,9 @@ public class LoginServiceTest {
     @Test
     public void testLoginIsCorrectWhenUsernameAndPasswordMatch(){
         LoginService loginService = LoginService.getInstance();
-        assertTrue(loginService.login(libraryNumber, password));
+        loginService.login(libraryNumber, password);
+        Assert.assertEquals(Status.LOGGED_IN, loginService.status);
     }
+
 
 }

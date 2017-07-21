@@ -1,23 +1,30 @@
 package com.twu.biblioteca.action;
 
-import com.twu.biblioteca.StoreInterface;
-import com.twu.biblioteca.Rentable;
+import com.twu.biblioteca.*;
 import com.twu.biblioteca.biblioteca.Book;
 
 public class ShowListOfBooksAction extends Action {
-
-    private final String DISPLAYFORMAT = "%-15s %-15s %-10s\n";
 
     public ShowListOfBooksAction(StoreInterface biblioteca){
         super(biblioteca);
     }
 
     public boolean go() {
-        String outputInColumns = String.format(DISPLAYFORMAT, "Title", "Author", "Year Published");
+        String outputInColumns = titlesInColumns("Title", "Author", "Year Published");
         for (Rentable iBook : store.getListOfAvailable()) {
-            outputInColumns += String.format(DISPLAYFORMAT, ((Book)iBook).getTitle(), ((Book)iBook).getAuthor(), ((Book)iBook).getYearPublished());
+            outputInColumns += infoInColumns((Book) iBook);
         }
         System.out.println(outputInColumns);
         return true;
+    }
+
+    private final String DISPLAYFORMAT = "%-15s %-15s %-10s\n";
+
+    private String titlesInColumns(String title, String author, String year) {
+        return String.format(DISPLAYFORMAT, title, author, year);
+    }
+
+    private String infoInColumns(Book iBook) {
+        return String.format(DISPLAYFORMAT, iBook.getTitle(), iBook.getAuthor(), iBook.getYearPublished());
     }
 }

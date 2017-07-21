@@ -38,7 +38,6 @@ public class BibliotecaAppTest {
         assertTrue(outContent.toString().trim().contains("***************** Welcome to \"la Biblioteca\" *****************"));
     }
 
-
     @Test
     public void testWhenRunningAppPrintsListOfOptionsAfterWelcomeMessage() {
         when(inputMock.read()).thenReturn("q");

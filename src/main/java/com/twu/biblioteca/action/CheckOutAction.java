@@ -5,11 +5,8 @@ import com.twu.biblioteca.Input;
 
 public class CheckOutAction extends Action {
 
-    private Input input;
-
     public CheckOutAction(Input input, StoreInterface store) {
-        super(store);
-        this.input = input;
+        super(store, input);
     }
 
     public boolean go() {

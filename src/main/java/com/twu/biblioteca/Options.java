@@ -20,7 +20,8 @@ public class Options {
         C("Option 3. Return a book"),
         D("Option 4. Show list of movies"),
         E("Option 5. Check out a movie"),
-        F("Option 6. Quit de program (press \"q\")");
+        F("Option 6. Log in with library number and password"),
+        G("Option 7. Quit de program (press \"q\")");
 
         private final String text;
 

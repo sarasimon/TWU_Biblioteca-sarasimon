@@ -6,11 +6,8 @@ import com.twu.biblioteca.Input;
 
 public class ReturnAction extends Action {
 
-    private Input input;
-
     public ReturnAction(Input input, StoreInterface biblioteca) {
-        this.store = biblioteca;
-        this.input = input;
+        super(biblioteca, input);
     }
 
     public boolean go() {

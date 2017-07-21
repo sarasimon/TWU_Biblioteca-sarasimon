@@ -18,6 +18,8 @@ public class ActionFactory {
             return new ShowListOfMoviesAction(blockbuster);
         } else if (option.equals("5")) {
             return new CheckOutAction(input, blockbuster);
+        } else if (option.equals("6")) {
+            return new LogInAction(input);
         } else if (option.equals("q")) {
             return new QuitAction();
         } else {

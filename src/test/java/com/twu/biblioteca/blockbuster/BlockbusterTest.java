@@ -1,10 +1,6 @@
 package com.twu.biblioteca.blockbuster;
 
-import com.twu.biblioteca.biblioteca.Biblioteca;
-import com.twu.biblioteca.biblioteca.Book;
-import com.twu.biblioteca.blockbuster.Blockbuster;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 public class BlockbusterTest {

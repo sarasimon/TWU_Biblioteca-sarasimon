@@ -1,11 +1,13 @@
 package com.twu.biblioteca.action;
 
-import com.twu.biblioteca.StoreInterface;
-
-public class InvalidAction extends Action {
+public class InvalidAction implements Action {
 
     public boolean go() {
         System.out.println("Select a valid option!");
         return true;
+    }
+
+    public String description(String s) {
+        return "";
     }
 }

@@ -23,7 +23,7 @@ public class MenuTest {
 
     @Test
     public void testWhenInvalidOptionIsChosenInputIsCalledTwiceUntilItFindsValidOption() {
-        when(inputMock.read()).thenReturn("0").thenReturn("1").thenReturn("q");
+        when(inputMock.read()).thenReturn("0").thenReturn("1").thenReturn("7");
         menu = new Menu(inputMock);
         menu.open();
 
@@ -32,7 +32,7 @@ public class MenuTest {
 
     @Test
     public void testWhenValidOptionIsChosen3TimesInputIsCalledUntilWeExit() {
-        when(inputMock.read()).thenReturn("1").thenReturn("1").thenReturn("q");
+        when(inputMock.read()).thenReturn("1").thenReturn("1").thenReturn("7");
         menu = new Menu(inputMock);
         menu.open();
 
@@ -41,7 +41,7 @@ public class MenuTest {
 
     @Test
     public void testWhenEnteredQWillExitTheProgram() {
-        when(inputMock.read()).thenReturn("0").thenReturn("q");
+        when(inputMock.read()).thenReturn("0").thenReturn("7");
         menu = new Menu(inputMock);
         menu.open();
 

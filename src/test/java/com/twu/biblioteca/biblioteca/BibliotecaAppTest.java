@@ -3,6 +3,8 @@ package com.twu.biblioteca.biblioteca;
 import com.twu.biblioteca.Input;
 import com.twu.biblioteca.Menu;
 import com.twu.biblioteca.Options;
+import com.twu.biblioteca.action.ActionFactory;
+import com.twu.biblioteca.blockbuster.Blockbuster;
 import org.junit.*;
 import org.mockito.Mock;
 import org.mockito.junit.*;
@@ -33,39 +35,36 @@ public class BibliotecaAppTest {
 
     @Test
     public void testWhenRunningAppMessageIsWelcomeMessage() {
-        when(inputMock.read()).thenReturn("q");
+        when(inputMock.read()).thenReturn("7");
         bibliotecaApp.start(new Menu(inputMock));
         assertTrue(outContent.toString().trim().contains("***************** Welcome to \"la Biblioteca\" *****************"));
     }
 
     @Test
     public void testWhenRunningAppPrintsListOfOptionsAfterWelcomeMessage() {
-        when(inputMock.read()).thenReturn("q");
+        when(inputMock.read()).thenReturn("7");
         bibliotecaApp.start(new Menu(inputMock));
         String output = "***************** Welcome to \"la Biblioteca\" *****************\n";
         output += "\nThis is the menu: (Press number and Intro to select an option)\n";
-        for (Options.Strings d : Options.Strings.values()) {
-            output += d.toString() + "\n";
-        }
+        ActionFactory actionFactory = ActionFactory.createActionFactory(new Input(), new Biblioteca(), new Blockbuster());
+        output += actionFactory.stringOfActions();
 
         assertEquals(output.trim(), outContent.toString().trim());
     }
 
     @Test
     public void testWhenRunningAppReturnsInvalidMessageWhenOptionIsInvalid() {
-        when(inputMock.read()).thenReturn("0").thenReturn("q");
+        when(inputMock.read()).thenReturn("0").thenReturn("7");
         bibliotecaApp = new BibliotecaApp();
         bibliotecaApp.start(new Menu(inputMock));
         String output = "***************** Welcome to \"la Biblioteca\" *****************\n";
         output += "\nThis is the menu: (Press number and Intro to select an option)\n";
-        for (Options.Strings d : Options.Strings.values()) {
-            output += d.toString() + "\n";
-        }
-        output += "Select a valid option!\n";
+        ActionFactory actionFactory = ActionFactory.createActionFactory(new Input(), new Biblioteca(), new Blockbuster());
+        output += actionFactory.stringOfActions();
+
+        output += "\nSelect a valid option!\n";
         output += "\nThis is the menu: (Press number and Intro to select an option)\n";
-        for (Options.Strings d : Options.Strings.values()) {
-            output += d.toString() + "\n";
-        }
+        output += actionFactory.stringOfActions();
 
         assertEquals(output.trim(), outContent.toString().trim());
     }

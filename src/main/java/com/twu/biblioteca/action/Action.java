@@ -1,24 +1,16 @@
 package com.twu.biblioteca.action;
 
-import com.twu.biblioteca.Input;
-import com.twu.biblioteca.StoreInterface;
+public interface Action {
 
-public abstract class Action {
+//    StoreInterface store;
+//
+//    public Action(){
+//    }
+//
+//    public Action(StoreInterface store){
+//        this.store = store;
+//    }
 
-    StoreInterface store;
-    Input input;
-
-    public Action(){
-    }
-
-    public Action(StoreInterface store){
-        this.store = store;
-    }
-
-
-    public Action(Input input){
-        this.input = input;
-    }
-
-    public abstract boolean go();
+    boolean go();
+    String description(String s);
 }

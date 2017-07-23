@@ -9,8 +9,8 @@ public class ShowListOfMoviesAction extends ShowListOfRentable {
 
     private String DISPLAYFORMAT = "%-15s %-15s %-10s %-15s\n";
 
-    public ShowListOfMoviesAction(StoreInterface biblioteca) {
-        super(biblioteca);
+    public ShowListOfMoviesAction(StoreInterface blockbuster) {
+        super(blockbuster);
     }
 
     String headersInColumns() {

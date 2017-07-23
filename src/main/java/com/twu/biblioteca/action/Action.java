@@ -15,10 +15,6 @@ public abstract class Action {
         this.store = store;
     }
 
-    public Action(StoreInterface store, Input input) {
-        this.store = store;
-        this.input = input;
-    }
 
     public Action(Input input){
         this.input = input;

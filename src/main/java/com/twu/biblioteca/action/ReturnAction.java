@@ -4,7 +4,7 @@ import com.twu.biblioteca.StoreInterface;
 import com.twu.biblioteca.biblioteca.Biblioteca;
 import com.twu.biblioteca.Input;
 
-public class ReturnAction extends Action {
+public class ReturnAction extends ActionWithInputAndStore {
 
     public ReturnAction(Input input, StoreInterface biblioteca) {
         super(biblioteca, input);

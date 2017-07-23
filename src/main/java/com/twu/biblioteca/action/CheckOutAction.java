@@ -10,15 +10,17 @@ public class CheckOutAction extends ActionWithInputAndStore {
     }
 
     public boolean go() {
-        System.out.println("Please, give the " + store.element() + " you want to check out:");
-        String title = input.read();
+        String title = answerTheQuestion("Please, give the " + store.element() + " you want to check out:");
         if (isAbleToCheckOut(title)) {
             checkOutBook(title);
-            return true;
         } else {
             System.out.println("That " + store.element() + " is not available. Please try again.\n");
-            return true;
         }
+        return true;
+    }
+
+    public String description(String number) {
+        return "Option " + number + ". Check out a " + store.element();
     }
 
     private void checkOutBook(String title) {

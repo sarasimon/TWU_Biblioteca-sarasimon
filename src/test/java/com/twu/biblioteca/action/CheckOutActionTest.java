@@ -43,7 +43,7 @@ public class CheckOutActionTest {
     @Test
     public void testWhenCheckingOutABookSuccessfullyReturnsSuccessfulMessage(){
         when(inputMock.read()).thenReturn("Bible");
-        String output = "Please, give the title of the book you want to check out:\n";
+        String output = "Please, give the book you want to check out:\n";
         output += "Thank you! Enjoy the book";
         Biblioteca biblioteca = new Biblioteca();
 
@@ -55,8 +55,8 @@ public class CheckOutActionTest {
 
     @Test
     public void testWhenCheckingOutABookUnsuccessfullyReturnsUnsuccessfulMessage(){
-        when(inputMock.read()).thenReturn("B").thenReturn("q");
-        String output = "Please, give the title of the book you want to check out:\n";
+        when(inputMock.read()).thenReturn("B").thenReturn("7");
+        String output = "Please, give the book you want to check out:\n";
         output += "That book is not available. Please try again.";
         Biblioteca biblioteca = new Biblioteca();
 

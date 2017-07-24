@@ -10,7 +10,7 @@ public abstract class ActionWithInput implements Action {
         this.input = input;
     }
 
-    String answerTheQuestion(String question){
+    String answerTo(String question){
         System.out.println(question);
         return input.read();
     }

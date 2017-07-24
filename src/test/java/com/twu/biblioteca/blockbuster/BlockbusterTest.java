@@ -1,5 +1,6 @@
 package com.twu.biblioteca.blockbuster;
 
+import com.twu.biblioteca.biblioteca.NoUser;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -17,7 +18,6 @@ public class BlockbusterTest {
     @Test
     public void testGetMovieThatDoesNotExistReturnsNullMovie(){
         Blockbuster blockbuster = new Blockbuster();
-
         assertTrue(blockbuster.getMovie("Titanic") instanceof NullMovie);
     }
 

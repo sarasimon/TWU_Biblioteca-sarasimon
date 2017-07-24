@@ -22,8 +22,6 @@ public class Movie implements Rentable{
         return director;
     }
 
-    public Boolean isAvailable(){ return available; }
-
     public Integer getRating() {
         if (rating < 1) {
             rating = 1;
@@ -33,9 +31,7 @@ public class Movie implements Rentable{
         return rating;
     }
 
-    void setAsUnavailable() {
-        available = false;
-    }
+    public Boolean isAvailable(){ return available; }
 
     public Movie(String name, Integer year, String director, Integer rating) {
         this.name = name;
@@ -43,6 +39,10 @@ public class Movie implements Rentable{
         this.rating = rating;
         this.year = year;
         this.available = true;
+    }
+
+    void setAsUnavailable() {
+        available = false;
     }
 
 }

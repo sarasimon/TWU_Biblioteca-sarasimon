@@ -1,14 +1,15 @@
 package com.twu.biblioteca;
+import com.twu.biblioteca.biblioteca.User;
 
 import java.util.List;
 
 public interface StoreInterface {
 
-    public boolean checkOut(String name);
+    String checkOut(String title);
 
-    public String element();
+    String element();
 
     boolean isAvailable(String title);
 
-    public List<? extends Rentable> getListOfAvailable();
+    List<? extends Rentable> getListOfAvailable();
 }

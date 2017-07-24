@@ -10,7 +10,7 @@ public class Menu {
 
     public Menu(Input input) {
         this.input = input;
-        this.options = new Options(new Biblioteca(), new Blockbuster(), input);
+        this.options = new Options(new Biblioteca(LoginService.getInstance()), new Blockbuster(), input);
     }
 
     public void open() {

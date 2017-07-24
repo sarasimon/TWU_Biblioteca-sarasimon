@@ -10,17 +10,15 @@ public class ReturnAction extends ActionWithInputAndStore {
     }
 
     public boolean go() {
-        String title = answerTheQuestion("Please, give the title of the book you want to return:");
-        Biblioteca biblioteca = (Biblioteca) store;
-
-        if (biblioteca.bookWasCheckedOut(title)) {
-            biblioteca.returnBook(title);
-            System.out.println("Thank you for returning the book.");
+        if (!LoginService.getInstance().userIsLoggedIn()) {
+            System.out.println("You are not logged in.");
             return true;
-        } else {
-            System.out.println("That is not a valid book to return, try again");
-            return false;
         }
+
+        String title = answerTo("Please, give the title of the book you want to return:");
+        Biblioteca biblioteca = (Biblioteca) store;
+        System.out.println(biblioteca.returnBook(title));
+        return true;
     }
 
     public String description(String number) {

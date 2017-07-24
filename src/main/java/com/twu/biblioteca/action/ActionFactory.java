@@ -1,6 +1,7 @@
 package com.twu.biblioteca.action;
 
 import com.twu.biblioteca.Input;
+import com.twu.biblioteca.LoginService;
 import com.twu.biblioteca.biblioteca.Biblioteca;
 import com.twu.biblioteca.blockbuster.Blockbuster;
 
@@ -22,7 +23,7 @@ public class ActionFactory {
 
     public String stringOfActions(){
         String menuString = "";
-        for (int i = 1; i < 7; i++) {
+        for (int i = 1; i < 8; i++) {
             String number = Integer.toString(i);
             menuString += getAction(number).description(number) + "\n";
         }
@@ -33,13 +34,13 @@ public class ActionFactory {
         if (option.equals("1")) {
             return new ShowListOfBooksAction(biblioteca);
         } else if (option.equals("2")) {
-            return new CheckOutAction(input, biblioteca);
+            return new CheckOutAction(biblioteca, input);
         } else if (option.equals("3")) {
             return new ReturnAction(input, biblioteca);
         } else if (option.equals("4")) {
             return new ShowListOfMoviesAction(blockbuster);
         } else if (option.equals("5")) {
-            return new CheckOutAction(input, blockbuster);
+            return new CheckOutAction(blockbuster, input);
         } else if (option.equals("6")) {
             return new LogInAction(input);
         } else if (option.equals("7")) {

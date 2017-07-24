@@ -3,22 +3,23 @@ package com.twu.biblioteca.action;
 import com.twu.biblioteca.Input;
 import com.twu.biblioteca.LoginService;
 import com.twu.biblioteca.biblioteca.Biblioteca;
+import com.twu.biblioteca.biblioteca.BibliotecaService;
 import com.twu.biblioteca.blockbuster.Blockbuster;
 
 public class ActionFactory {
 
     private Input input;
     private Blockbuster blockbuster;
-    private Biblioteca biblioteca;
+    private BibliotecaService bibliotecaService;
 
-    private ActionFactory(Input input, Biblioteca biblioteca, Blockbuster blockbuster){
-        this.biblioteca = biblioteca;
+    private ActionFactory(Input input, BibliotecaService bibliotecaService, Blockbuster blockbuster){
+        this.bibliotecaService = bibliotecaService;
         this.blockbuster = blockbuster;
         this.input = input;
     }
 
-    public static ActionFactory createActionFactory(Input input, Biblioteca biblioteca, Blockbuster blockbuster){
-        return new ActionFactory(input,biblioteca,blockbuster);
+    public static ActionFactory createActionFactory(Input input, BibliotecaService bibliotecaService, Blockbuster blockbuster){
+        return new ActionFactory(input,bibliotecaService,blockbuster);
     }
 
     public String stringOfActions(){
@@ -32,11 +33,11 @@ public class ActionFactory {
 
     public Action getAction(String option){
         if (option.equals("1")) {
-            return new ShowListOfBooksAction(biblioteca);
+            return new ShowListOfBooksAction(bibliotecaService);
         } else if (option.equals("2")) {
-            return new CheckOutAction(biblioteca, input);
+            return new CheckOutAction(bibliotecaService, input);
         } else if (option.equals("3")) {
-            return new ReturnAction(input, biblioteca);
+            return new ReturnAction(input, bibliotecaService);
         } else if (option.equals("4")) {
             return new ShowListOfMoviesAction(blockbuster);
         } else if (option.equals("5")) {

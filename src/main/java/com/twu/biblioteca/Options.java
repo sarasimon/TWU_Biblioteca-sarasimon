@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.action.*;
 import com.twu.biblioteca.biblioteca.Biblioteca;
+import com.twu.biblioteca.biblioteca.BibliotecaService;
 import com.twu.biblioteca.blockbuster.Blockbuster;
 
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ public class Options {
 
     ActionFactory actionFactory;
 
-    public Options(Biblioteca biblioteca, Blockbuster blockbuster, Input input) {
-        actionFactory = ActionFactory.createActionFactory(input,biblioteca,blockbuster);
+    public Options(BibliotecaService bibliotecaService, Blockbuster blockbuster, Input input) {
+        actionFactory = ActionFactory.createActionFactory(input,bibliotecaService,blockbuster);
     }
 
     public void ask() {

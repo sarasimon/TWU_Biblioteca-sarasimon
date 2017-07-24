@@ -11,8 +11,6 @@ public class LogInAction extends ActionWithInput {
     }
 
     public boolean go() {
-        Pattern numberPattern = Pattern.compile("\\d{3}-\\d{4}");
-
         String libraryNumber = answerTo("Please, introduce your library number (format xxx-xxxx):");
 
         if(!libraryNumber.matches("\\d{3}-\\d{4}")){

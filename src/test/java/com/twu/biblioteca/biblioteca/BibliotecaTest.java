@@ -1,6 +1,5 @@
 package com.twu.biblioteca.biblioteca;
 
-import com.twu.biblioteca.Input;
 import com.twu.biblioteca.LoginService;
 import org.junit.*;
 import org.mockito.Mock;
@@ -13,6 +12,7 @@ import static org.junit.Assert.*;
 public class BibliotecaTest {
 
     Biblioteca biblioteca;
+    BibliotecaService bibliotecaService;
 
     @Mock
     private LoginService loginServiceMock;
@@ -21,51 +21,52 @@ public class BibliotecaTest {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Before
-    public void setUp(){
+    public void setUp() {
         Mockito.when(loginServiceMock.userIsLoggedIn()).thenReturn(true);
-        Mockito.when(loginServiceMock.getUser()).thenReturn(new LoggedUser("",""));
-        biblioteca = new Biblioteca(loginServiceMock);
+        Mockito.when(loginServiceMock.getUser()).thenReturn(new LoggedUser("", ""));
+        biblioteca = new Biblioteca();
+        bibliotecaService = new BibliotecaService(loginServiceMock, biblioteca);
     }
 
     @Test
-    public void testBibliotecaHasPreExistingListWhenInitialised(){
-        assertTrue(biblioteca.getListOfAvailable().size() > 0);
+    public void testBibliotecaHasPreExistingListWhenInitialised() {
+        assertTrue(bibliotecaService.getListOfAvailable().size() > 0);
     }
 
     @Test
-    public void testCheckOutBookLeavesListOfBooksWithOneLess(){
+    public void testCheckOutBookLeavesListOfBooksWithOneLess() {
         Book book = new Book("TDD", "Ken Beck", 1900);
         biblioteca.addBook(book);
 
-        int sizeBeforeCheckOut = biblioteca.getListOfAvailable().size();
-        biblioteca.checkOut(book.getTitle());
-        assertEquals(sizeBeforeCheckOut - 1, biblioteca.getListOfAvailable().size());
+        int sizeBeforeCheckOut = bibliotecaService.getListOfAvailable().size();
+        bibliotecaService.checkOut(book.getTitle());
+        assertEquals(sizeBeforeCheckOut - 1, bibliotecaService.getListOfAvailable().size());
     }
 
     @Test
-    public void testAddBookAddsOneBookToTheBibliotecaList(){
-        int initialSize = biblioteca.getListOfAvailable().size();
+    public void testAddBookAddsOneBookToTheBibliotecaList() {
+        int initialSize = bibliotecaService.getListOfAvailable().size();
         Book book = new Book("TDD", "Ken Beck", 1900);
         biblioteca.addBook(book);
-        assertEquals(initialSize + 1, biblioteca.getListOfAvailable().size());
+        assertEquals(initialSize + 1, bibliotecaService.getListOfAvailable().size());
     }
 
     @Test
-    public void testBookExistsReturnsTrueWhenTitleOfBookIsInTheListOfBooks(){
+    public void testBookExistsReturnsTrueWhenTitleOfBookIsInTheListOfBooks() {
         Book book = new Book("TDD", "Ken Beck", 1900);
         biblioteca.addBook(book);
 
-        assertTrue(biblioteca.isAvailable(book.getTitle()));
+        assertTrue(bibliotecaService.isAvailable(book.getTitle()));
     }
 
     @Test
     public void testBookExistsReturnsTrueWhenBookIsReturned() {
         Book book = new Book("TDD", "Ken Beck", 1900);
         biblioteca.addBook(book);
-        biblioteca.checkOut(book.getTitle());
-        biblioteca.returnBook(book.getTitle());
+        bibliotecaService.checkOut(book.getTitle());
+        bibliotecaService.returnBook(book.getTitle());
 
-        assertTrue(biblioteca.isAvailable(book.getTitle()));
+        assertTrue(bibliotecaService.isAvailable(book.getTitle()));
     }
 
     @Test
@@ -73,16 +74,16 @@ public class BibliotecaTest {
         Book book = new Book("TDD", "Ken Beck", 1900);
         biblioteca.addBook(book);
 
-        assertEquals("Thank you! Enjoy the book", biblioteca.checkOut(book.getTitle()));
+        assertEquals("Thank you! Enjoy the book", bibliotecaService.checkOut(book.getTitle()));
     }
 
     @Test
     public void testBookIsAvailableIsFalseAfterCheckingItOut() {
         Book book = new Book("TDD", "Ken Beck", 1900);
         biblioteca.addBook(book);
-        biblioteca.checkOut(book.getTitle());
+        bibliotecaService.checkOut(book.getTitle());
 
-        assertTrue(!biblioteca.isAvailable(book.getTitle()));
+        assertTrue(!bibliotecaService.isAvailable(book.getTitle()));
     }
 
 

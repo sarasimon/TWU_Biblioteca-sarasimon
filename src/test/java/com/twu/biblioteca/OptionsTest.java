@@ -1,6 +1,8 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.biblioteca.Biblioteca;
+import com.twu.biblioteca.biblioteca.BibliotecaService;
+import com.twu.biblioteca.biblioteca.Book;
 import com.twu.biblioteca.biblioteca.User;
 import com.twu.biblioteca.blockbuster.Blockbuster;
 import org.junit.*;
@@ -11,6 +13,9 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 public class OptionsTest {
+
+    @Mock
+    private BibliotecaService bibliotecaService;
 
     @Mock
     private Biblioteca bibliotecaMock;
@@ -24,24 +29,33 @@ public class OptionsTest {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
+    LoginService loginService;
+
+
+    @Before
+    public void setUp(){
+         loginService = LoginService.getInstance();
+         loginService.login("111-1111","1111");
+    }
+
     @Test
     public void testWhenPressOption1PrintsListOfAvailableBooks() {
         when(inputMock.read()).thenReturn("1");
 
-        Options options = new Options(bibliotecaMock, blockbusterMock, inputMock);
+        Options options = new Options(bibliotecaService, blockbusterMock, inputMock);
         options.returnOptions(inputMock.read());
 
-        verify(bibliotecaMock, times(1)).getListOfAvailable();
+        verify(bibliotecaService, times(1)).getListOfAvailable();
     }
 
     @Test
-    public void testWhenPress3ReturnMethodInBibliotecaIsCalled() {
-        when(inputMock.read()).thenReturn("3");
+    public void testWhenPress3ReturnMethodIsNotCheckedOutInBibliotecaIsCalled() {
+        when(inputMock.read()).thenReturn("3").thenReturn("Bible");
 
-        Options options = new Options(bibliotecaMock, blockbusterMock, inputMock);
+        Options options = new Options(bibliotecaService, blockbusterMock, inputMock);
         options.returnOptions(inputMock.read());
 
-        verify(bibliotecaMock, times(1)).returnBook(anyString());
+        verify(bibliotecaService, times(1)).returnBook(anyString());
     }
 
     @Test
@@ -49,7 +63,7 @@ public class OptionsTest {
         when(inputMock.read()).thenReturn("5");
         when(blockbusterMock.isAvailable(anyString())).thenReturn(true);
 
-        Options options = new Options(bibliotecaMock, blockbusterMock, inputMock);
+        Options options = new Options(bibliotecaService, blockbusterMock, inputMock);
         options.returnOptions(inputMock.read());
 
         verify(blockbusterMock, times(1)).checkOut(anyString());
@@ -59,7 +73,7 @@ public class OptionsTest {
     public void testWhenPress4PrintsListOfAvailableMovies() {
         when(inputMock.read()).thenReturn("4");
 
-        Options options = new Options(bibliotecaMock, blockbusterMock, inputMock);
+        Options options = new Options(bibliotecaService, blockbusterMock, inputMock);
         options.returnOptions(inputMock.read());
 
         verify(blockbusterMock, times(1)).getListOfAvailable();
@@ -72,20 +86,7 @@ public class OptionsTest {
 
         when(inputMock.read()).thenReturn("6").thenReturn(libraryNumber).thenReturn(password);
 
-        Options options = new Options(bibliotecaMock, blockbusterMock, inputMock);
-        options.returnOptions(inputMock.read());
-
-        Assert.assertTrue(LoginService.getInstance().userIsLoggedIn());
-    }
-
-    @Test
-    public void testWhenPress6ChecksForInvalidUsernameAndPasswordAndPutsLoginInterfaceIntoNotLoggedStatus() {
-        String libraryNumber = "1";
-        String password = "1";
-
-        when(inputMock.read()).thenReturn("6").thenReturn(libraryNumber).thenReturn(password);
-
-        Options options = new Options(bibliotecaMock, blockbusterMock, inputMock);
+        Options options = new Options(bibliotecaService, blockbusterMock, inputMock);
         options.returnOptions(inputMock.read());
 
         Assert.assertTrue(LoginService.getInstance().userIsLoggedIn());

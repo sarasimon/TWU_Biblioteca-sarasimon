@@ -26,10 +26,12 @@ public class LoginServiceTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
+    private PrintStream out;
+
     @Before
     public void setUpStreams() {
+        out = System.out;
         System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
     }
 
     @Test
@@ -57,9 +59,7 @@ public class LoginServiceTest {
 
     @After
     public void cleanUpStreams() {
-        System.setOut(null);
-        System.setErr(null);
+        System.setOut(out);
     }
-
 
 }

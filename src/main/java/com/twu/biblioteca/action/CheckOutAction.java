@@ -3,6 +3,8 @@ package com.twu.biblioteca.action;
 import com.twu.biblioteca.LoginService;
 import com.twu.biblioteca.StoreInterface;
 import com.twu.biblioteca.Input;
+import com.twu.biblioteca.biblioteca.Biblioteca;
+import com.twu.biblioteca.biblioteca.BibliotecaService;
 
 public class CheckOutAction extends ActionWithInputAndStore {
 

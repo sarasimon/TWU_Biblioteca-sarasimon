@@ -21,7 +21,6 @@ public class Options {
     }
 
     public Boolean returnOptions(String opt) {
-
         Action action = actionFactory.getAction(opt);
         return action.go();
     }

@@ -1,18 +1,30 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.biblioteca.LoggedUser;
+import com.twu.biblioteca.biblioteca.NoUser;
+import com.twu.biblioteca.biblioteca.User;
+
 import java.util.*;
 
 public class LoginService {
 
-    private Map<String, String> credentialsMap;
+    private List<LoggedUser> loggedUsersList;
     private static LoginService instance = null;
-    public Status status;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public boolean userIsLoggedIn(){
+        return user instanceof LoggedUser;
+    }
 
     private LoginService() {
-        credentialsMap = new HashMap<>();
-        credentialsMap.put("123-4567", "1111");
-        credentialsMap.put("111-1111", "1111");
-        status = Status.UNLOGGED;
+        loggedUsersList = new ArrayList<>();
+        loggedUsersList.add(new LoggedUser("123-4567", "1111"));
+        loggedUsersList.add(new LoggedUser("111-1111", "1111"));
+        user = new NoUser();
     }
 
     public static LoginService getInstance() {
@@ -22,15 +34,22 @@ public class LoginService {
         return instance;
     }
 
-    public void login(String libraryNumber, String password) {
-        if (validCredentials(libraryNumber, password)) {
-            status = Status.LOGGED_IN;
-        } else {
-            status = Status.UNLOGGED;
+    public boolean login(String libraryNumber, String password) {
+        for (LoggedUser loggedUser : loggedUsersList) {
+            if (isUserAuth(libraryNumber, password, loggedUser)){
+                user = loggedUser;
+                return true;
+            }
         }
+        return false;
     }
 
-    private boolean validCredentials(String libraryNumber, String password) {
-        return credentialsMap.containsKey(libraryNumber) && credentialsMap.get(libraryNumber).equals(password);
+    public void logout(){
+        user = new NoUser();
+    }
+
+    private boolean isUserAuth(String libraryNumber, String password, LoggedUser loggedUser) {
+        return loggedUser.getLibraryNumber().equals(libraryNumber) &&
+                loggedUser.getPassword().equals(password);
     }
 }

@@ -1,21 +1,39 @@
 package com.twu.biblioteca.biblioteca;
 
+import com.twu.biblioteca.Input;
+import com.twu.biblioteca.LoginService;
 import org.junit.*;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
+
 import static org.junit.Assert.*;
 
 public class BibliotecaTest {
 
     Biblioteca biblioteca;
 
+    @Mock
+    private LoginService loginServiceMock;
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
+
+    @Before
+    public void setUp(){
+        Mockito.when(loginServiceMock.userIsLoggedIn()).thenReturn(true);
+        Mockito.when(loginServiceMock.getUser()).thenReturn(new LoggedUser("",""));
+        biblioteca = new Biblioteca(loginServiceMock);
+    }
+
     @Test
     public void testBibliotecaHasPreExistingListWhenInitialised(){
-        biblioteca = new Biblioteca();
         assertTrue(biblioteca.getListOfAvailable().size() > 0);
     }
 
     @Test
     public void testCheckOutBookLeavesListOfBooksWithOneLess(){
-        biblioteca = new Biblioteca();
         Book book = new Book("TDD", "Ken Beck", 1900);
         biblioteca.addBook(book);
 
@@ -26,7 +44,6 @@ public class BibliotecaTest {
 
     @Test
     public void testAddBookAddsOneBookToTheBibliotecaList(){
-        biblioteca = new Biblioteca();
         int initialSize = biblioteca.getListOfAvailable().size();
         Book book = new Book("TDD", "Ken Beck", 1900);
         biblioteca.addBook(book);
@@ -35,7 +52,6 @@ public class BibliotecaTest {
 
     @Test
     public void testBookExistsReturnsTrueWhenTitleOfBookIsInTheListOfBooks(){
-        biblioteca = new Biblioteca();
         Book book = new Book("TDD", "Ken Beck", 1900);
         biblioteca.addBook(book);
 
@@ -44,13 +60,29 @@ public class BibliotecaTest {
 
     @Test
     public void testBookExistsReturnsTrueWhenBookIsReturned() {
-        biblioteca = new Biblioteca();
         Book book = new Book("TDD", "Ken Beck", 1900);
         biblioteca.addBook(book);
         biblioteca.checkOut(book.getTitle());
         biblioteca.returnBook(book.getTitle());
 
         assertTrue(biblioteca.isAvailable(book.getTitle()));
+    }
+
+    @Test
+    public void testBibliotecaCheckOutConnectsBookWithUser() {
+        Book book = new Book("TDD", "Ken Beck", 1900);
+        biblioteca.addBook(book);
+
+        assertEquals("Thank you! Enjoy the book", biblioteca.checkOut(book.getTitle()));
+    }
+
+    @Test
+    public void testBookIsAvailableIsFalseAfterCheckingItOut() {
+        Book book = new Book("TDD", "Ken Beck", 1900);
+        biblioteca.addBook(book);
+        biblioteca.checkOut(book.getTitle());
+
+        assertTrue(!biblioteca.isAvailable(book.getTitle()));
     }
 
 

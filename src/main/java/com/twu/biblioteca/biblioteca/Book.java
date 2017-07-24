@@ -10,6 +10,14 @@ public class Book implements Rentable{
         return title;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public Integer getYearPublished() {
+        return yearPublished;
+    }
+
     private String title;
 
     public Book(String title, String author, Integer yearPublished){
@@ -18,11 +26,4 @@ public class Book implements Rentable{
         this.yearPublished = yearPublished;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public Integer getYearPublished() {
-        return yearPublished;
-    }
 }

@@ -24,15 +24,6 @@ public class Blockbuster implements StoreInterface {
         listOfMovies.add(movie);
     }
 
-    public boolean checkOut(String name) {
-        for (Movie movie : listOfMovies) {
-            if (movie.getName().equals(name)) {
-                movie.setAsUnavailable();
-            }
-        }
-        return true;
-    }
-
     public boolean isAvailable(String title) {
         return getMovie(title).isAvailable();
     }
@@ -48,12 +39,22 @@ public class Blockbuster implements StoreInterface {
         return availableMovies;
     }
 
-    public Movie getMovie(String name) {
+    Movie getMovie(String name) {
         for (Movie movie : listOfMovies) {
             if (movie.getName().equals(name)) {
                 return movie;
             }
         }
         return new NullMovie();
+    }
+
+    public String checkOut(String title) {
+        for (Movie movie : listOfMovies) {
+            if (movie.getName().equals(title)) {
+                movie.setAsUnavailable();
+                return "Thank you! Enjoy the movie.";
+            }
+        }
+        return "That movie is not available. Please try again.";
     }
 }

@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.biblioteca.Biblioteca;
+import com.twu.biblioteca.biblioteca.User;
 import com.twu.biblioteca.blockbuster.Blockbuster;
 import org.junit.*;
 import org.mockito.Mock;
@@ -36,7 +37,6 @@ public class OptionsTest {
     @Test
     public void testWhenPress3ReturnMethodInBibliotecaIsCalled() {
         when(inputMock.read()).thenReturn("3");
-        when(bibliotecaMock.bookWasCheckedOut(anyString())).thenReturn(true);
 
         Options options = new Options(bibliotecaMock, blockbusterMock, inputMock);
         options.returnOptions(inputMock.read());
@@ -75,7 +75,7 @@ public class OptionsTest {
         Options options = new Options(bibliotecaMock, blockbusterMock, inputMock);
         options.returnOptions(inputMock.read());
 
-        Assert.assertEquals(Status.LOGGED_IN, LoginService.getInstance().status);
+        Assert.assertTrue(LoginService.getInstance().userIsLoggedIn());
     }
 
     @Test
@@ -88,7 +88,7 @@ public class OptionsTest {
         Options options = new Options(bibliotecaMock, blockbusterMock, inputMock);
         options.returnOptions(inputMock.read());
 
-        Assert.assertEquals(Status.UNLOGGED, LoginService.getInstance().status);
+        Assert.assertTrue(LoginService.getInstance().userIsLoggedIn());
     }
 
 }

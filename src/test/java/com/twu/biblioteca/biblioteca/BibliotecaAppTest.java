@@ -1,6 +1,7 @@
 package com.twu.biblioteca.biblioteca;
 
 import com.twu.biblioteca.Input;
+import com.twu.biblioteca.LoginService;
 import com.twu.biblioteca.Menu;
 import com.twu.biblioteca.Options;
 import com.twu.biblioteca.action.ActionFactory;
@@ -46,7 +47,7 @@ public class BibliotecaAppTest {
         bibliotecaApp.start(new Menu(inputMock));
         String output = "***************** Welcome to \"la Biblioteca\" *****************\n";
         output += "\nThis is the menu: (Press number and Intro to select an option)\n";
-        ActionFactory actionFactory = ActionFactory.createActionFactory(new Input(), new Biblioteca(), new Blockbuster());
+        ActionFactory actionFactory = ActionFactory.createActionFactory(new Input(), new Biblioteca(LoginService.getInstance()), new Blockbuster());
         output += actionFactory.stringOfActions();
 
         assertEquals(output.trim(), outContent.toString().trim());
@@ -59,7 +60,7 @@ public class BibliotecaAppTest {
         bibliotecaApp.start(new Menu(inputMock));
         String output = "***************** Welcome to \"la Biblioteca\" *****************\n";
         output += "\nThis is the menu: (Press number and Intro to select an option)\n";
-        ActionFactory actionFactory = ActionFactory.createActionFactory(new Input(), new Biblioteca(), new Blockbuster());
+        ActionFactory actionFactory = ActionFactory.createActionFactory(new Input(), new Biblioteca(LoginService.getInstance()), new Blockbuster());
         output += actionFactory.stringOfActions();
 
         output += "\nSelect a valid option!\n";
